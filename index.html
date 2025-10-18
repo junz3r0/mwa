@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>가나다라마바사아차아차아차</title>
+    <style>
+        /* CSS: 화면 중앙 정렬 및 텍스트 스타일 */
+        body {
+            /* Flexbox를 사용해 화면 정중앙에 배치 */
+            display: flex;
+            justify-content: center; /* 가로 중앙 정렬 */
+            align-items: center; /* 세로 중앙 정렬 */
+            height: 100vh; /* 화면 전체 높이 사용 */
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #main-text {
+            /* 텍스트 크기 및 모양 설정 */
+            font-size: 4em;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer; /* 마우스 커서를 클릭 가능한 모양으로 변경 */
+            user-select: none; /* 텍스트 선택 방지 */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-text">눌러봐</div>
+
+    <script>
+        /* JavaScript: 클릭 이벤트 처리 */
+        const mainText = document.getElementById('main-text');
+
+        mainText.addEventListener('click', function() {
+            // 클릭 시 텍스트를 '너 바보'로 변경
+            mainText.textContent = '너 바보';
+            
+            // 한 번만 바뀌도록 이벤트 리스너 제거
+            mainText.style.cursor = 'default';
+            mainText.removeEventListener('click', arguments.callee);
+        });
+    </script>
+
+</body>
+</html>
