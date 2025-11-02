@@ -39,26 +39,6 @@
     <div id="image-container"></div>
 
     <script>
-        //페이지 이탈 방지 기능 추가 (요청하신 기능)
-        let canLeave = false;
-        const blockDuration = 60000; // 60초 (1분)
-
-        // 1분 후에 canLeave 변수를 true로 설정하여 이탈 허용
-        setTimeout(() => {
-            canLeave = true;
-            console.log("1분이 지났습니다. 이제 자유롭게 페이지를 떠날 수 있습니다.");
-        }, blockDuration);
-
-        // 사용자가 페이지를 닫거나 이동하려고 할 때 경고창 표시
-        window.addEventListener('beforeunload', function (event) {
-            if (!canLeave) {
-                event.preventDefault();
-                // 브라우저가 자체 경고 문구를 표시합니다.
-                event.returnValue = "잠시만요! 1분이 지나지 않았습니다. 정말로 페이지를 떠나시겠습니까?";
-            }
-        });
-
-
         
         //무작위 이미지 배치 기능 (기존 기능) 
         const imageContainer = document.getElementById('image-container');
@@ -100,6 +80,7 @@
     </script>
 </body>
 </html>
+
 
 
 
