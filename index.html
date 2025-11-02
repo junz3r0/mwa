@@ -19,7 +19,7 @@
         /* 이미지 스타일: 절대 위치로 지정하여 겹치게 만들고, 전환 효과를 추가합니다 */
         .cat-image {
             position: absolute;
-            width: 200px; /* 이미지 크기 조절 (원하는 크기로 변경 가능) */
+            width: 200px; /* 이미지 크기 조절 */
             height: auto;
             transform: rotate(0deg); /* 초기 회전 각도 */
             opacity: 0.9; /* 약간의 투명도 */
@@ -39,11 +39,33 @@
     <div id="image-container"></div>
 
     <script>
-        const imageContainer = document.getElementById('image-container');
-        // ⭐⭐⭐ 이 부분이 이미지 파일명으로 정확하게 수정되었습니다 ⭐⭐⭐
-        const imageFileName = 'cat.png';
+        //페이지 이탈 방지 기능 추가 (요청하신 기능)
+        let canLeave = false;
+        const blockDuration = 60000; // 60초 (1분)
+
+        // 1분 후에 canLeave 변수를 true로 설정하여 이탈 허용
+        setTimeout(() => {
+            canLeave = true;
+            console.log("1분이 지났습니다. 이제 자유롭게 페이지를 떠날 수 있습니다.");
+        }, blockDuration);
+
+        // 사용자가 페이지를 닫거나 이동하려고 할 때 경고창 표시
+        window.addEventListener('beforeunload', function (event) {
+            if (!canLeave) {
+                event.preventDefault();
+                // 브라우저가 자체 경고 문구를 표시합니다.
+                event.returnValue = "잠시만요! 1분이 지나지 않았습니다. 정말로 페이지를 떠나시겠습니까?";
+            }
+        });
+
+
         
-        // 생성할 이미지 개수 (원하는 만큼 숫자를 변경하세요. 예를 들어 500개)
+        //무작위 이미지 배치 기능 (기존 기능) 
+        const imageContainer = document.getElementById('image-container');
+        // 파일명을 'cat.png'로 가정하고 수정했습니다. GitHub 파일명을 확인하세요.
+        const imageFileName = 'cat.png'; 
+        
+        // 생성할 이미지 개수 
         const numberOfImages = 200; 
 
         // 뷰포트 너비와 높이
@@ -58,11 +80,10 @@
             img.classList.add('cat-image');
 
             // 2. 무작위 위치 계산
-            // 너비/높이의 90% 이내에서 무작위 위치를 설정하여 테두리에 너무 붙지 않게 합니다.
-            const randomX = Math.random() * (viewportWidth - 150); // 150은 이미지 크기 + 여백
-            const randomY = Math.random() * (viewportHeight - 150); // 150은 이미지 크기 + 여백
+            const randomX = Math.random() * (viewportWidth - 150);
+            const randomY = Math.random() * (viewportHeight - 150);
             
-            // 3. 무작위 회전 각도 계산 (0도에서 360도)
+            // 3. 무작위 회전 각도 계산
             const randomRotation = Math.random() * 360;
 
             // 4. 스타일 적용
@@ -70,15 +91,10 @@
             img.style.top = randomY + 'px';
             img.style.transform = `rotate(${randomRotation}deg)`;
             
-            // 5. 무작위 크기 적용 (선택 사항: 이미지가 다양한 크기로 보입니다)
-            // const randomSize = 50 + Math.random() * 100; // 50px에서 150px 사이
-            // img.style.width = randomSize + 'px';
-            // img.style.height = 'auto';
-
-            // 6. 무작위 z-index 적용 (선택 사항: 겹쳤을 때 순서 무작위)
+            // 5. 무작위 z-index 적용
             img.style.zIndex = Math.floor(Math.random() * 100);
 
-            // 7. 컨테이너에 추가
+            // 6. 컨테이너에 추가
             imageContainer.appendChild(img);
         }
     </script>
